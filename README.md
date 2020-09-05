@@ -14,3 +14,9 @@ metadata:
 
 spec:
 ```
+
+extract yaml from existing pod
+
+`kubectl get pod <podname> -o yaml > pod-definition.yaml`
+
+`kubectl edit pod <podname>`
