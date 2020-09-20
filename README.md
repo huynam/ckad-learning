@@ -88,6 +88,56 @@ kind: Deployment
 
 `kubectl get all`
 
+### Namespace
+
+Tenant unit that ensure isolations with the rest.
+Byt default, we use the default namespace. But when creating a multitenant cluster, you can segegrate and isolate service per ns
+
+ns can define min resource spec guarantee but also quotas.
+
+To access pod in different namespace
+`<name svs>.<name ns>.svc.cluster.local`
+
+--namespace dev
+
+namespace in the metadata section
+
+Switch to dev namespace:
+`kubectl config set-config $kubectl config current-contrxt) --namespace=dev`
+`kubectl get pods --all-namespaces`
+
+
+### CMD and Arg in kubernetes
+
+```
+spec:
+  containers:
+    - name: <docker container name>
+      image: <docker image>
+      command:["sleep2.0] //override entrypoing
+
+      args: ["10"]
+
+```
+
+### environment variable
+
+```
+spec:
+  containers:
+  - name: <bla>
+    image: <bla>
+    env:
+      - name: <env name>
+        value: <value>
+      - name: <env name>
+        valueFrom:
+          configMapKeyRef: // from config map
+      - name: <env name>
+        valueFrom:
+          secretKeyRef: // from secret
+
+```
 
 ### Tips
 
@@ -112,3 +162,9 @@ Limitation: need to add the selectors manually
 -o wide All the info
 -o yaml
 
+`kubectl run nginx --image nginx --port 80 --expose`
+
+ENTRYPOINT ["sleep"] appended
+CMD ["5"] override at dcoker run
+
+run --entrypoint override
